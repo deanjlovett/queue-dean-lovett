@@ -1,4 +1,4 @@
-// almost there... stay on target...
+// code golf version
 let q=[]; 
 let isRunning = false;
 
@@ -7,18 +7,16 @@ function addToQueue(runTask) {
   if(isRunning) 
     return;
   isRunning = true;
-  runTask(doneWithTask);
+  return doneWithTask();
+  // does calling the above function via a "return" help?
 }
 
-// doneWithTask has no variables declare on its stack
-// still need to check for stack growth in node.js
-//
 function doneWithTask(){
-  q.shift();
-  if(  q.length === 0 ) 
+  if(  q.length === 0) 
     isRunning = false;
   else 
-    q[0]( doneWithTask );
+    return q.shift()( doneWithTask ); 
+  // does calling the above function via a "return" help?
 }
 
 function abortFromQueue(run){
