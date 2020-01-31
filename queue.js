@@ -3,25 +3,18 @@ let isRunning = false;
 
 function addToQueue(runTask) {
   q.push(runTask);
-  let id = setInterval( 
-    () => {
-      if(!isRunning && q.length>0){
-        isRunning = true;
-        let task = q.shift();
-        task( () => {
-          isRunning = false;
-          clearInterval(id);
-        })
-      }
-    }
-    ,
-    100
-  );
+  if(isRunning) return;
+  isRunning = true;
+  doneWithTask(); 
+}
+
+function doneWithTask(){
+  if( q.length === 0){ isRunning = false; return;}
+  q.shift()( doneWithTask ); 
 }
 
 function abortFromQueue(run){
-  let foundit = q.indexOf(run);
-  if( foundit != -1){
-    q.splice(foundit,1);
+  if( q.indexOf(run) != -1){
+    q.splice(q.indexOf(run),1);
   }
 };
