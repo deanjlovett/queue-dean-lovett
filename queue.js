@@ -4,17 +4,23 @@ let isRunning = false;
 
 function addToQueue(runTask) {
   q.push(runTask);
-  if(isRunning) return;
+  if(isRunning) 
+    return;
   isRunning = true;
-  doneWithTask(); 
+  return doneWithTask();
+  // does calling the above function via a "return" help?
 }
 
 function doneWithTask(){
-  if(  q.length === 0) isRunning = false;
-  else q.shift()( doneWithTask ); 
+  if(  q.length === 0) 
+    isRunning = false;
+  else 
+    return q.shift()( doneWithTask ); 
+  // does calling the above function via a "return" help?
 }
 
 function abortFromQueue(run){
   let idx = q.indexOf(run)
-  if( idx !== -1) q.splice(idx,1);
+  if( idx !== -1) 
+    q.splice(idx,1);
 };
