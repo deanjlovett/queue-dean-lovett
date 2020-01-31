@@ -1,4 +1,5 @@
-let q=[];
+// code golf version
+let q=[]; 
 let isRunning = false;
 
 function addToQueue(runTask) {
@@ -9,12 +10,11 @@ function addToQueue(runTask) {
 }
 
 function doneWithTask(){
-  if( q.length === 0){ isRunning = false; return;}
-  q.shift()( doneWithTask ); 
+  if(  q.length === 0) isRunning = false;
+  else q.shift()( doneWithTask ); 
 }
 
 function abortFromQueue(run){
-  if( q.indexOf(run) != -1){
-    q.splice(q.indexOf(run),1);
-  }
+  let idx = q.indexOf(run)
+  if( idx !== -1) q.splice(idx,1);
 };
