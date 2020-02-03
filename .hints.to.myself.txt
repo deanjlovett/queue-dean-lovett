@@ -13,3 +13,5 @@ git add *; git commit -m 'adds initial files'; git push -u origin master
 git add *; git commit -m 'adds revised algorithm, attempt at \'tail recursion\' '; git push -u origin master
 
 git add *; git commit -m 'adds revised algorithm, yet again'; git push -u origin master
+
+git add *; git commit -m 'adds revised algorithm, now using promises'; git push -u origin master
