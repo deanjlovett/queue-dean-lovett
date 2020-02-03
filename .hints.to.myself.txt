@@ -15,3 +15,5 @@ git add *; git commit -m 'adds revised algorithm, attempt at \'tail recursion\' 
 git add *; git commit -m 'adds revised algorithm, yet again'; git push -u origin master
 
 git add *; git commit -m 'adds revised algorithm, now using promises'; git push -u origin master
+
+git add *; git commit -m 'no longer monkies with array while reduce is working on it.'; git push -u origin master

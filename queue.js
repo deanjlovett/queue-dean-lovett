@@ -8,7 +8,7 @@ let evilCount=0;
 
 function addToQueue(runTask) {
   ++tc;
-  // lets just force a few attribute/properties onto that runTask
+  // lets just dangerously force a few attribute/properties onto that runTask function
   runTask['cancel']=false;
   runTask['moniker']=''+tc;
   qBacklog.push(runTask);
@@ -55,11 +55,14 @@ function abortFromQueue(run){
     where ='qBacklog'
     qBacklog.splice(idx,1);
   }
-  else {
-    idx = rOnDeck.indexOf(run);
-    if( idx !== -1) {
-      where ='rOnDeck'
-      rOnDeck.splice(idx,1);
-    }
-  }
+  // probably not a good idea to interupt 
+  // the reduce() that is working on that array
+  //
+  // else {
+  //   idx = rOnDeck.indexOf(run);
+  //   if( idx !== -1) {
+  //     where ='rOnDeck'
+  //     rOnDeck.splice(idx,1);
+  //   }
+  // }
 };
