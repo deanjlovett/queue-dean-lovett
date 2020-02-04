@@ -1,30 +1,29 @@
 
 // almost there... stay on target...
-let q=[]; 
+let queue=[]; 
 let isRunning = false;
 
 function addToQueue(runTask) {
-  q.push(runTask);
+  // addToQueue runs when the task is added to the queue.
+
+  queue.push(runTask);
   if(isRunning) 
     return;
   isRunning = true;
   runTask(doneWithTask);
 }
 
-// doneWithTask has no variables declare on its stack
-// still need to check for stack growth in node.js
-//
 function doneWithTask(){
-  q.shift();
-  if(  q.length === 0 ) 
+  queue.shift();
+  if(  queue.length === 0 ) 
     isRunning = false;
   else 
-    q[0]( doneWithTask );
+    queue[0]( doneWithTask );
 }
 
-function cancelFromQueue(run){
-  let idx = q.indexOf(run)
+function abortFromQueue(run){
+  let idx = queue.indexOf(run)
   if( idx !== -1) 
-    q.splice(idx,1);
+    queue.splice(idx,1);
 };
 

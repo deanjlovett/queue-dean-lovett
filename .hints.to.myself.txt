@@ -19,3 +19,5 @@ git add *; git commit -m 'adds revised algorithm, now using promises'; git push 
 git add *; git commit -m 'no longer monkies with array while reduce is working on it.'; git push -u origin master
 
 git add *; git commit -m 'adds version without promieses, for side by side compare.'; git push -u origin master
+
+git add *; git commit -m 'split versions. each has own js and html, for side by side compare.'; git push -u origin master

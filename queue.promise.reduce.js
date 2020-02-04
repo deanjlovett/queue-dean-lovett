@@ -2,7 +2,6 @@
 
 let qBacklog=[];  //  pre queue 
 let rOnDeck=[];   // main queue 
-let iOnDeck=-1;
 let isRunning = false;
 let tc = 0;
 let lastTask;
@@ -14,7 +13,6 @@ function addToQueue(runTask) {
   // lets just force a few attribute/properties onto that runTask
   runTask['cancel']=false;
   runTask['moniker']=''+tc;
-  runTask['complete']=false;
   qBacklog.push(runTask);
   if(isRunning) {
     console.log('Whoo there partner!  Put that task in the backlog queue.  Move along... move along');
@@ -35,22 +33,24 @@ function doEvilThings(){
     isRunning = false;
     return;
   } 
-  console.log('     No rest for the wicked');
-  if(rOnDeck.length>1)  console.log('   there are', rOnDeck.length-iOnDeck,'evil things left to be done!');
-  else                  console.log('   there is still ONE evil thing left to be done!');
-  if(qBacklog.length>1) console.log('      Oh, NO!  There is even a backlog of', qBacklog.length,'evil things left to be done after that!');
-  else                  console.log('      Oh, NO!  There is even a backlog of ONE evil thing left to be done after that!');
+          console.log('     No rest for the wicked');
+          if(rOnDeck.length>1)
+            console.log('   there are', rOnDeck.length,'evil things left to be done!');
+          else
+            console.log('   there is still ONE evil thing left to be done!');
+          if(qBacklog.length>1)
+            console.log('      Oh, NO!  There is even a backlog of', rOnDeck.length,'evil things left to be done after that!');
+          else
+            console.log('      Oh, NO!  There is even a backlog of ONE evil thing left to be done after that!');
 
-  let requests = rOnDeck.reduce((promiseChain, task,idx,arr) => {
+  let requests = rOnDeck.reduce((promiseChain, task) => {
     return promiseChain.then(() => new Promise((resolve,reject) => {
-      console.log('Tasks created:',tc,'OnDeck:',rOnDeck.length-iOnDeck,'BackLog:',qBacklog.length);
-      console.log('let\'s see about runing a task.');
-      iOnDeck=idx;
+      console.log('let\'s run a task.  task count:',tc,'rs:',rOnDeck.length,'q:',qBacklog.length);
       if( ! task.cancel ){
-        console.log('running:',task.moniker);
+        console.log('running:',task && task.moniker);
         task(resolve);
       } else {
-        console.log('Whoops! That task was canceled:',task.moniker);
+        console.log('Whoops! That was canceled:',task.moniker);
         //reject( new Error('Whoops! That was canceled: '+task.moniker));
         resolve();
       }
@@ -67,7 +67,7 @@ function doEvilThings(){
   console.log(' stop doing EvilThings: recursion count:',evilCount--);
 }
 
-function cancelFromQueue(run){
+function abortFromQueue(run){
   run.cancel = true;
   let idx = qBacklog.indexOf(run);
   let where='unknown';
@@ -82,5 +82,5 @@ function cancelFromQueue(run){
       rOnDeck.splice(idx,1);
     }
   }
-  console.log('let\'s cancel task:',run.moniker,'from queue:',where,'tc:',tc,'OnDeck:',rOnDeck.length,'BackLog:',qBacklog.length);
+  console.log('let\'s cancel task:',run.moniker,'from queue:',where,'tc:',tc,'rs:',rOnDeck.length,'q:',qBacklog.length);
 };

@@ -13,10 +13,10 @@
     <button class="turn">Queue it up!</button>
     <div class="output"></div>
     <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
-    <script src="queue.promise.js"></script>
+    <script src="queue.use.interval.js"></script>
     <script>
       // Config
-      var USE_CANCEL = true;
+      var USE_ABORT = true;
       var TASK_TIME_MIN = 0.5; // seconds
       var TASK_TIME_MAX = 2; // seconds
       var clickNum = 1;
@@ -29,14 +29,14 @@
         var progressCtx = progressBar.getContext("2d");
         var progressAmount = 0;
         var progressDiv = $("<div></div>").append("Task number " + thisNum + " queued. ")
-        if (USE_CANCEL) {
-          var cancelButton = $("<button>Cancel</button>");
-          cancelButton.click(function (evt) { cancelButton.remove(); cancelFromQueue(run); });
-          progressDiv.append(cancelButton);
+        if (USE_ABORT) {
+          var abortButton = $("<button>Abort</button>");
+          abortButton.click(function (evt) { abortButton.remove(); abortFromQueue(run); });
+          progressDiv.append(abortButton);
         }
         $(".output").append(progressDiv);
         var run = function (done) {
-          cancelButton && cancelButton.remove();
+          abortButton && abortButton.remove();
           progressDiv.append(progressBar).append("<br>");
           var frames = 0;
           var durationSecs = TASK_TIME_MIN + Math.random() * (TASK_TIME_MAX - TASK_TIME_MIN);
@@ -64,3 +64,4 @@
     </script>
   </body>
 </html>
+
